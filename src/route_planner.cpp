@@ -30,11 +30,13 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node)
     //Set the parent, the h_value, the g_value for the current node neighbors
     for (auto &neighbor : current_node->neighbors)
     {
-        neighbor->parent = current_node;
-        neighbor->h_value = this->CalculateHValue(neighbor);
-        neighbor->g_value = neighbor->distance(*start_node);
-        neighbor->visited = true;
-        open_list.emplace_back(neighbor);
+        if(!neighbor->visited){
+            neighbor->parent = current_node;
+            neighbor->h_value = this->CalculateHValue(neighbor);
+            neighbor->g_value = neighbor->distance(*start_node);
+            neighbor->visited = true;
+            open_list.emplace_back(neighbor);
+        }
     }
 }
 
@@ -51,6 +53,7 @@ RouteModel::Node *RoutePlanner::NextNode()
         }
     } fsort;
     std::sort(open_list.begin(), open_list.end(), fsort);
+    
     //Return the lowest sum h_val+g_val node
     RouteModel::Node *last = open_list.back();
     open_list.pop_back();
