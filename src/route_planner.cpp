@@ -33,9 +33,9 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node)
         if(!neighbor->visited){
             neighbor->parent = current_node;
             neighbor->h_value = this->CalculateHValue(neighbor);
-            neighbor->g_value = neighbor->distance(*start_node);
+            neighbor->g_value = current_node->g_value+ neighbor->distance(*current_node);
             neighbor->visited = true;
-            open_list.emplace_back(neighbor);
+            open_list.push_back(neighbor);
         }
     }
 }
@@ -49,7 +49,7 @@ RouteModel::Node *RoutePlanner::NextNode()
         bool operator()(RouteModel::Node *a, RouteModel::Node *b) const
         {
 
-            return a->g_value + a->h_value > b->g_value + b->h_value;
+            return std::isgreater(a->g_value + a->h_value , b->g_value + b->h_value);
         }
     } fsort;
     std::sort(open_list.begin(), open_list.end(), fsort);
