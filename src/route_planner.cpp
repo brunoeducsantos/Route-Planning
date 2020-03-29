@@ -33,25 +33,26 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node)
         neighbor->parent = current_node;
         neighbor->h_value = this->CalculateHValue(neighbor);
         neighbor->g_value = neighbor->distance(*start_node);
-        neighbor->visited= true;
+        neighbor->visited = true;
         open_list.emplace_back(neighbor);
     }
 }
 
 // NextNode method: to sort the open list and return the next node.
 RouteModel::Node *RoutePlanner::NextNode()
-{   
+{
     //Sort nodes according to g_val+h_val in descending order
-    struct {
-        bool operator()(RouteModel::Node  *a, RouteModel::Node *b) const
-        {   
+    struct
+    {
+        bool operator()(RouteModel::Node *a, RouteModel::Node *b) const
+        {
 
             return a->g_value + a->h_value > b->g_value + b->h_value;
-        }   
+        }
     } fsort;
     std::sort(open_list.begin(), open_list.end(), fsort);
     //Return the lowest sum h_val+g_val node
-    RouteModel::Node * last= open_list.back();
+    RouteModel::Node *last = open_list.back();
     open_list.pop_back();
     return last;
 }
@@ -69,12 +70,18 @@ std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node 
     // Create path_found vector
     distance = 0.0f;
     std::vector<RouteModel::Node> path_found;
+    
+    while(start_node !=current_node){
+        path_found.insert(path_found.begin(),*current_node);
+        distance = current_node->distance(*current_node->parent);
+        distance *= m_Model.MetricScale(); // Multiply the distance by the scale of the map to get meters.
+        current_node=current_node->parent;
+    }    
+    path_found.insert(path_found.begin(),*start_node);
 
-    // TODO: Implement your solution here.
-
-    distance *= m_Model.MetricScale(); // Multiply the distance by the scale of the map to get meters.
     return path_found;
 }
+
 
 // TODO 7: Write the A* Search algorithm here.
 // Tips:
