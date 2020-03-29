@@ -56,7 +56,7 @@ RouteModel::Node *RoutePlanner::NextNode()
     
     //Return the lowest sum h_val+g_val node
     RouteModel::Node *last = open_list.back();
-    open_list.pop_back();
+    open_list.pop_back(); 
     return last;
 }
 
