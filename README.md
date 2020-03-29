@@ -1,6 +1,8 @@
 # Route Planning Project
 
-This repo contains the starter code for the Route Planning project.
+## Overview
+
+This repo is a implementation of A* algorithm on OSM map, where the the user provides start/end coordinates and the shortest path is shown on IOD GUI.
 
 <img src="map.png" width="600" height="450" />
 
@@ -8,11 +10,7 @@ This repo contains the starter code for the Route Planning project.
 
 When cloning this project, be sure to use the `--recurse-submodules` flag. Using HTTPS:
 ```
-git clone https://github.com/udacity/CppND-Route-Planning-Project.git --recurse-submodules
-```
-or with SSH:
-```
-git clone git@github.com:udacity/CppND-Route-Planning-Project.git --recurse-submodules
+git clone https://github.com/brunoeducsantos/Route-Planning  --recurse-submodules
 ```
 
 ## Dependencies for Running Locally
@@ -45,7 +43,7 @@ make
 ### Running
 The executable will be placed in the `build` directory. From within `build`, you can run the project as follows:
 ```
-./OSM_A_star_search
+./OSM_A_star_search 
 ```
 Or to specify a map file:
 ```
