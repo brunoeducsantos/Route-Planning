@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repo is a implementation of A* algorithm on OSM map, where the the user provides start/end coordinates and the shortest path is shown on IOD GUI.
+This repo is a implementation of A* algorithm on OSM map, where the the user provides start/end coordinates and the shortest path is shown on IO2D GUI.
 
 <img src="map.png" width="600" height="450" />
 
